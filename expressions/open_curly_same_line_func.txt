@@ -5,3 +5,7 @@
 
 def antipattern(tree, dec, body):
     return dec[0].end_point[0] == body[0].start_point[0]
+
+ANTIPATTERN COMMENT
+Per the style guide:
+curly braces following functions should be on the next line.
