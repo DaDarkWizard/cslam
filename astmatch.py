@@ -42,6 +42,8 @@ def main():
         tree = parser.parse(code_file.read(), encoding='utf8')
 
         for file_name in os.listdir(EXPRESSIONS_FOLDER):
+            if ("test" in file_name):
+                continue
             with open(EXPRESSIONS_FOLDER + file_name, 'r') as query_file:
                 query_text = query_file.read()
                 query_code = None
