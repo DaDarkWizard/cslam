@@ -83,9 +83,10 @@ def main():
                                     print(query_comment)
 
                     else:
-                        print(file_name[0:-4] + ': ' + ' line ' + str(match[1]['antipattern'][0].start_point[0] + 1))
-                        if query_comment is not None:
-                            print(query_comment)
+                        for match in matches:
+                            print(file_name[0:-4] + ': ' + ' line ' + str(match[1]['antipattern'][0].start_point[0] + 1))
+                            if query_comment is not None:
+                                print(query_comment)
 
 if __name__ == '__main__':
     main()
