@@ -73,7 +73,7 @@ def main():
                                 print(file_name[0:-4] + ' line ' + str(match[1]['antipattern'][0].start_point[0] + 1))
 
                     else:
-                        print(file_name[0:-4] + ': ' + )
+                        print(file_name[0:-4] + ': ' + ' line ' + str(match[1]['antipattern'][0].start_point[0] + 1))
 
 if __name__ == '__main__':
     main()
