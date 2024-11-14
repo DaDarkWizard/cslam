@@ -30,7 +30,6 @@ tree_sitter.Node.contains = contains
 
 
 def main():
-    print('test')
     if len(sys.argv) != 3:
         print("Usage: python astmatch.py <expressions_folder> <input_file>")
         return
