@@ -1,0 +1,7 @@
+(while_statement
+    condition: (_) @w
+    body: (compound_statement) @body
+) @antipattern
+
+def antipattern(tree, w, body):
+    return w[0].end_point[0] == body[0].start_point[0]

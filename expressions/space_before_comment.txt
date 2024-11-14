@@ -1,0 +1,17 @@
+((_) @a . (comment) @comment ) @antipattern
+
+((_ (comment) @comment) @a) @antipattern
+
+def antipattern(tree, a, comment):
+    if a[0].contains(comment[0]):
+        if a[0].start_point[0] < (comment[0].start_point[0] + 2)\
+               and a[0].type != 'compound_statement':
+            print(a[0].type, ' wraps comment ')
+            return True
+        return False
+    else:
+        if comment[0].start_point[0] < (a[0].end_point[0] + 2):
+            print(a[0].type, ' before comment')
+            return True
+        else:
+            return False

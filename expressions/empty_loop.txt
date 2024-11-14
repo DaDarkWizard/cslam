@@ -1,0 +1,10 @@
+(while_statement 
+	(compound_statement)
+    @statement 
+    (#match? @statement "\\{\\s*\\}") 
+    
+) @empty-loop
+
+(while_statement 
+	(compound_statement . (comment)+ .)
+) @empty-loop

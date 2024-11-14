@@ -1,0 +1,4 @@
+((comment) @com . (_) @any ) @antipattern
+
+def antipattern(tree, com, any):
+    return com[0].start_point[1] != any[0].start_point[1]
