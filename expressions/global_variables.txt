@@ -1,0 +1,6 @@
+(translation_unit (declaration) @antipattern )
+
+ANTIPATTERN COMMENT
+Global variables should be used rarely, if ever.
+You should define your variables locally then pass them through function
+parameters.
