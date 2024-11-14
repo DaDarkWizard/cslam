@@ -31,13 +31,15 @@ tree_sitter.Node.contains = contains
 
 def main():
     print('test')
-    if len(sys.argv) != 2:
-        print("Usage: python astmatch.py <input_file>")
+    if len(sys.argv) != 3:
+        print("Usage: python astmatch.py <expressions_folder> <input_file>")
         return
+
+    EXPRESSIONS_FOLDER = sys.argv[1]
 
     parser = Parser(CURRENT_LANGUAGE)
 
-    with open(sys.argv[1], 'rb') as code_file:
+    with open(sys.argv[2], 'rb') as code_file:
         tree = parser.parse(code_file.read(), encoding='utf8')
 
         for file_name in os.listdir(EXPRESSIONS_FOLDER):
