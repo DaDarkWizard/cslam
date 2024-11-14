@@ -1,0 +1,35 @@
+(compound_statement  
+    [
+        (expression_statement)
+        (compound_statement)
+        (if_statement)
+        (for_statement)
+        (while_statement)
+        (declaration)
+        (function_definition)
+    ]
+    @first .(comment)* .
+    [
+        (expression_statement)
+        (compound_statement)
+        (if_statement)
+        (for_statement)
+        (while_statement)
+        (declaration)
+        (function_definition)
+    ]
+    @second 
+) @antipattern
+
+def antipattern(tree, first, second):
+    if first[0].start_point[0] == second[0].start_point[0] and\
+        first[0].start_point[1] != second[0].start_point[1]:
+        print("thingy?")
+        print(first[0])
+        print(second[0])
+    return (first[0].start_point[1] != second[0].start_point[1],\
+            'lines: ' + str(first[0].start_point[0] + 1) +\
+            ', ' + str(second[0].start_point[0] + 1))
+
+ANTIPATTERN COMMENT
+Statements that follow each other should be the same indentation.

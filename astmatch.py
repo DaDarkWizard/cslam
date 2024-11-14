@@ -5,6 +5,7 @@ from pprint import pp
 import sys
 import os
 import array
+import json
 
 C_LANGUAGE = Language(tsc.language())
 CURRENT_LANGUAGE = C_LANGUAGE
@@ -39,6 +40,7 @@ def main():
     parser = Parser(CURRENT_LANGUAGE)
 
     with open(sys.argv[2], 'rb') as code_file:
+        results = []
         tree = parser.parse(code_file.read(), encoding='utf8')
 
         for file_name in os.listdir(EXPRESSIONS_FOLDER):
@@ -77,16 +79,34 @@ def main():
                                 if i < len(args) - 1:
                                     func_call += ', '
                             func_call += ')'
-                            if eval(func_call):
-                                print(file_name[0:-4] + ' line ' + str(match[1]['antipattern'][0].start_point[0] + 1))
-                                if query_comment is not None:
-                                    print(query_comment)
+                            eval_result = eval(func_call)
+                            result = {}
+                            if isinstance(eval_result, bool):
+                                if eval_result:
+                                    result["name"] = file_name[0:-4]
+                                    if query_comment is not None:
+                                        result["comment"] = query_comment
+                                    result["lines"] = [
+                                        match[1]['antipattern'][0].start_point[0] + 1
+                                    ]
+                                    results.append(result)
+                            else:
+                                if eval_result[0]:
+                                    result["name"] = file_name[0:-4]
+                                    if query_comment is not None:
+                                        result["comment"] = query_comment
+                                    result["lines"] = eval_result[1]
+                                    results.append(result)
 
                     else:
                         for match in matches:
-                            print(file_name[0:-4] + ': ' + ' line ' + str(match[1]['antipattern'][0].start_point[0] + 1))
+                            result = {}
+                            result["name"] = file_name[0:-4]
                             if query_comment is not None:
-                                print(query_comment)
+                                result["comment"] = query_comment
+                            result["lines"] = match[1]['antipattern'][0].start_point[0] + 1
+                            results.append(result)
+        print(json.dumps(results))
 
 if __name__ == '__main__':
     main()
