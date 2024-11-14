@@ -47,6 +47,11 @@ def main():
             with open(EXPRESSIONS_FOLDER + file_name, 'r') as query_file:
                 query_text = query_file.read()
                 query_code = None
+                query_comment = None
+
+                if "ANTIPATTERN COMMENT" in query_text:
+                    query_comment = query_text[query_text.index("ANTIPATTERN COMMENT") + 20:-1]
+                    query_text = query_text[0:query_text.index("ANTIPATTERN COMMENT") - 1]
 
                 if "def antipattern(" in query_text:
                     query_code = query_text[query_text.index("def antipattern("):-1]
@@ -74,9 +79,13 @@ def main():
                             func_call += ')'
                             if eval(func_call):
                                 print(file_name[0:-4] + ' line ' + str(match[1]['antipattern'][0].start_point[0] + 1))
+                                if query_comment is not None:
+                                    print(query_comment)
 
                     else:
                         print(file_name[0:-4] + ': ' + ' line ' + str(match[1]['antipattern'][0].start_point[0] + 1))
+                        if query_comment is not None:
+                            print(query_comment)
 
 if __name__ == '__main__':
     main()
