@@ -104,7 +104,7 @@ def main():
                             result["name"] = file_name[0:-4]
                             if query_comment is not None:
                                 result["comment"] = query_comment
-                            result["lines"] = match[1]['antipattern'][0].start_point[0] + 1
+                            result["lines"] = [match[1]['antipattern'][0].start_point[0] + 1]
                             results.append(result)
         print(json.dumps(results))
 
