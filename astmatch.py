@@ -170,7 +170,8 @@ def grade(pattern_conn, submission_id):
 
     # Get all files they submitted
     assignment_cur.execute(
-        "SELECT id, version, CONVERT(file_data USING utf8) as file_data, filetype, filesize, filename FROM submission_file WHERE submissionid=? and can_process_file=1",
+        "SELECT id, version, CONVERT(file_data USING utf8) as file_data, filetype, " +\
+        "filesize, filename FROM submission_file WHERE submissionid=? and can_process_file=1",
         (submission_id,)
     )
 
@@ -202,11 +203,13 @@ def grade(pattern_conn, submission_id):
         tree = parser.parse(file_data, encoding='utf8')
 
         pattern_cur.execute(
-            "SELECT id, title, regex_string, code_string, text, short_text, kind, on_match, citation, severity, description from pattern where LOWER(language)=? and version=? and is_disabled=0",
+            "SELECT id, title, regex_string, code_string, text, short_text, kind, on_match, citation," +\
+            "severity, description from pattern where LOWER(language)=? and version=? and is_disabled=0",
             (language_name,7,)
         )
 
-        for (pattern_id, pattern_name, query_string, code_string, pattern_text, pattern_short_text, pattern_kind, pattern_on_match, pattern_citation, pattern_severity, pattern_description) in pattern_cur:
+        for (pattern_id, pattern_name, query_string, code_string, pattern_text, pattern_short_text, pattern_kind,\
+                pattern_on_match, pattern_citation, pattern_severity, pattern_description) in pattern_cur:
             query = CURRENT_LANGUAGE.query(query_string)
             matches = query.matches(tree.root_node)
 
@@ -354,8 +357,18 @@ def grade(pattern_conn, submission_id):
             main_critique["num_warning"] += 1
 
         assignment_cur.execute(
-            "INSERT INTO critique_item(version, start_column, start_position, column_num, date_created, issue_kind, line, last_updated, issue_source, critique_item_type, text, patternid, is_native_method, submission_file_id, start_line, severity, position, name, priority, critique_id, end_line, status, end_position, alt_text, issue_type, description, end_column) values(?, ?, ?, ?, NOW(), ?, ?, NOW(), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-            (7, critique["start_column"], critique["start_position"], critique["start_column"], critique["issue_kind"], critique["start_line"], critique["issue_source"], critique["critique_item_type"], critique["text"], critique["patternid"], critique["is_native_method"], critique["submission_file_id"], critique["start_line"], critique["severity"], critique["start_position"], critique["name"], critique["priority"], main_critique["id"], critique["end_line"], critique["status"], critique["end_position"], critique["alt_text"], critique["issue_type"], critique["description"], critique["end_column"],)
+            "INSERT INTO critique_item(version, start_column, start_position, " +\
+            "column_num, date_created, issue_kind, line, last_updated, issue_source, " +\
+            "critique_item_type, text, patternid, is_native_method, submission_file_id, " +\
+            "start_line, severity, position, name, priority, critique_id, end_line, status, " +\
+            "end_position, alt_text, issue_type, description, end_column) " +\
+            "values(?, ?, ?, ?, NOW(), ?, ?, NOW(), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            (7, critique["start_column"], critique["start_position"], critique["start_column"], critique["issue_kind"], \
+            critique["start_line"], critique["issue_source"], critique["critique_item_type"], critique["text"],\
+            critique["patternid"], critique["is_native_method"], critique["submission_file_id"], critique["start_line"],\
+            critique["severity"], critique["start_position"], critique["name"], critique["priority"], main_critique["id"],\
+            critique["end_line"], critique["status"], critique["end_position"], critique["alt_text"], critique["issue_type"],\
+            critique["description"], critique["end_column"],)
         )
 
         assignment_conn.commit()
