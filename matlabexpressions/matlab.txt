@@ -1,0 +1,4 @@
+(source_file (assignment)) @antipattern
+
+ANTIPATTERN COMMENT
+This is an example of global declaration.

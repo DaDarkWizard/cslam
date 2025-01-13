@@ -363,7 +363,7 @@ def grade(pattern_conn, submission_id):
             "start_line, severity, position, name, priority, critique_id, end_line, status, " +\
             "end_position, alt_text, issue_type, description, end_column) " +\
             "values(?, ?, ?, ?, NOW(), ?, ?, NOW(), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-            (7, critique["start_column"], critique["start_position"], critique["start_column"], critique["issue_kind"], \
+            (7, critique["start_column"], critique["start_position"], critique["start_column"], critique["issue_kind"],\
             critique["start_line"], critique["issue_source"], critique["critique_item_type"], critique["text"],\
             critique["patternid"], critique["is_native_method"], critique["submission_file_id"], critique["start_line"],\
             critique["severity"], critique["start_position"], critique["name"], critique["priority"], main_critique["id"],\
