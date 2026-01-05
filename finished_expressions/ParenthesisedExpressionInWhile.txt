@@ -1,0 +1,9 @@
+[
+ (while_statement condition: (parenthesized_expression))
+ (if_statement condition: (parenthesized_expression))
+ (elif_clause condition: (parenthesized_expression))
+]
+
+ANTIPATTERN COMMENT
+In python, the outer layer of conditional expressions should not have
+parentheses

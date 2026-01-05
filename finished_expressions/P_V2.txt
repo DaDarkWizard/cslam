@@ -1,0 +1,20 @@
+[
+    (assignment left: (identifier) @id (#match? @id 
+        "(int|float|complex|list|tuple|range|dict|set|frozenset|bool|bytes|bytesarray|memoryview|NoneType)"
+        ))
+
+    (assignment right: (identifier) @id (#match? @id 
+        "(int|float|complex|list|tuple|range|dict|set|frozenset|bool|bytes|bytesarray|memoryview|NoneType)"
+        ))
+
+    (augmented_assignment left: (identifier) @id (#match? @id 
+        "(int|float|complex|list|tuple|range|dict|set|frozenset|bool|bytes|bytesarray|memoryview|NoneType)"
+        ))
+
+    (augmented_assignment right: (identifier) @id (#match? @id 
+        "(int|float|complex|list|tuple|range|dict|set|frozenset|bool|bytes|bytesarray|memoryview|NoneType)"
+        ))
+] @antipattern
+
+ANTIPATTERN COMMENT
+Reserved words such as "print," "int," "input," among others, cannot be used for identifiers, such as variable names.

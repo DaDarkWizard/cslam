@@ -1,0 +1,6 @@
+tree_sitter
+tree_sitter_c
+tree_sitter_matlab==1.0.2
+tree_sitter_python
+tree_sitter_java
+mysql.connector

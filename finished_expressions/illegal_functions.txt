@@ -1,0 +1,5 @@
+(command (command_name) @id ) @antipattern
+(function_call name: (identifier) @id ) @antipattern
+
+def antipattern(tree, id):
+    return str(id[0].text, "utf8") in ["swap", "sort"]

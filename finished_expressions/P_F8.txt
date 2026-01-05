@@ -1,0 +1,9 @@
+(_ 
+  (function_definition name: (identifier) @fid)
+) @antipattern
+
+def antipattern(tree, fid):
+   return len(CURRENT_LANGUAGE.query("(call function: (identifier) @id (#eq? @id \"" + fid[0].text.decode('utf-8') + "\")) @antipattern").matches(tree.root_node)) <= 0
+
+ANTIPATTERN COMMENT
+You should call functions that you declared.

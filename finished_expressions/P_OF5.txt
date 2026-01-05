@@ -1,0 +1,8 @@
+(
+ (_
+   (identifier ) @print (#eq? @print "print")
+ ) @holder (#not-match? @holder "print[(].*")
+) @antipattern
+
+ANTIPATTERN COMMENT
+Print must be part of a function call.

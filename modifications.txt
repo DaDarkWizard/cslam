@@ -1,0 +1,2 @@
+Pass through comment in python function
+try/catch by default on patterns

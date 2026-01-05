@@ -1,0 +1,10 @@
+(while_statement body: (block
+  (expression_statement (assignment left: (identifier) @id right: (list))) @ap
+  
+  (expression_statement (call function: (attribute object: (identifier) @nid (#eq? @id @nid) 
+                            attribute: (identifier) @fid (#eq? @fid "append") )))
+ )
+) @antipattern
+
+ANTIPATTERN COMMENT
+Array should be created outside the loop.

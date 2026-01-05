@@ -1,0 +1,1 @@
+print(numero^2)

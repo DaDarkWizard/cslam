@@ -1,4 +1,6 @@
 import tree_sitter_c as tsc
+import tree_sitter_python as tsp
+import tree_sitter_matlab as tsm
 from tree_sitter import Language, Parser
 import tree_sitter
 from pprint import pp
@@ -6,9 +8,15 @@ import sys
 import os
 import array
 import json
+import warnings
 
-C_LANGUAGE = Language(tsc.language())
-CURRENT_LANGUAGE = C_LANGUAGE
+with warnings.catch_warnings():
+    warnings.filterwarnings("ignore", category=DeprecationWarning)
+    MATLAB_LANGUAGE = Language(tsm.language())
+    C_LANGUAGE = Language(tsc.language())
+
+PYTHON_LANGUAGE = Language(tsp.language())
+CURRENT_LANGUAGE = MATLAB_LANGUAGE 
 EXPRESSIONS_FOLDER = "C:/Users/Madly/source/repos/cslam/expressions/"
 
 
@@ -44,8 +52,6 @@ def main():
         tree = parser.parse(code_file.read(), encoding='utf8')
 
         for file_name in os.listdir(EXPRESSIONS_FOLDER):
-            if ("test" in file_name):
-                continue
             with open(EXPRESSIONS_FOLDER + file_name, 'r') as query_file:
                 query_text = query_file.read()
                 query_code = None
@@ -59,10 +65,14 @@ def main():
                     query_code = query_text[query_text.index("def antipattern("):-1]
                     query_text = query_text[0:query_text.index("def antipattern(") - 1]
 
+                from pprint import pprint
                 query = CURRENT_LANGUAGE.query(query_text)
+                #pprint(tree.root_node)
                 matches = query.matches(tree.root_node)
+                #pprint(matches)
 
                 if len(matches) > 0:
+                    # pprint(matches)
                     if query_code is not None:
                         # Create an arg list
                         args = query_code[query_code.index('(') + 1:query_code.index(')')]
@@ -72,6 +82,8 @@ def main():
                         exec(query_code)
 
                         for match in matches:
+                            if "antipattern" not in match[1]:
+                                continue
                             func_call = 'antipattern(tree, '
                             
                             for i, arg in enumerate(args):
@@ -100,6 +112,11 @@ def main():
 
                     else:
                         for match in matches:
+
+                            #if not 'antipattern' in match[1]:
+                            #    continue
+                            from pprint import pprint
+                            # pprint(match)
                             result = {}
                             result["name"] = file_name[0:-4]
                             if query_comment is not None:

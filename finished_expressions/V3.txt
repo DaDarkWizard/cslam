@@ -1,0 +1,6 @@
+
+(expression_statement (comparison_operator)) @antipattern
+
+ANTIPATTERN COMMENT
+Comparisons should be part of an if or while, not alone on their own line.
+Did you mean to assign this to a variable?

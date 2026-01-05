@@ -1,0 +1,10 @@
+(
+ (
+  _
+  (identifier) @a (#match? @a "input")
+ ) @pap
+ (#not-match? @pap "input[(].*")
+) @antipattern
+
+ANTIPATTERN COMMENT
+Every function name is followed by parentheses used to put parameters, even if they do not exist. Since "input" is a function, it must be followed by parentheses.

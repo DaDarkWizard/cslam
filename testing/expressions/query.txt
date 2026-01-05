@@ -1,0 +1,10 @@
+(
+ (
+  _
+  (identifier) @id (#match? @id "input")
+ ) @inputid
+ (#not-match? @inputid "input[(].*")
+) @antipattern
+
+ANTIPATTERN COMMENT
+Ope

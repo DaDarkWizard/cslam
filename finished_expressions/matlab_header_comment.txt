@@ -1,0 +1,21 @@
+(source_file . (comment)+  ) @sf
+((source_file . (comment)+ @comments ) @sf2 (#eq? @sf @sf2)) @antipattern
+
+def antipattern(tree, comments):
+    from pprint import pprint
+    # pprint(dir(comments[0]))
+
+    try:
+        header_comment = "".join([str(x.text, "utf8") + "\n" for x in comments])
+
+        if not header_comment or\
+           "date created: " not in header_comment.lower() or\
+           "course: " not in header_comment.lower() or\
+           "professor's name: " not in header_comment.lower() or\
+           "author: " not in header_comment.lower() or\
+           not header_comment.lower().startswith("%% header"):
+           return True
+    catch:
+        return False
+
+    return False

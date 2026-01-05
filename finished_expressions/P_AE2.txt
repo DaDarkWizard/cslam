@@ -1,0 +1,4 @@
+((binary_operator) @bop (#match? @bop ".*\\^.*")) @antipattern
+
+ANTIPATTERN COMMENT
+In python, ** is used as the exponent operator. '^' is the xor operator.
